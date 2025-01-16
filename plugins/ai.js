@@ -184,3 +184,28 @@ haki(
 		return msg.edit(res);
 	}
 );
+//https://nikka-api.us.kg/ai/moshai?q=hi&apiKey=nikka
+
+haki(
+	{
+		pattern: "shaka",
+		desc: "shaka ai by haki",
+		public: true,
+		type: "ai"
+	},
+	async (message, match, { pushName }) => {
+		if (!match && !message.reply_message?.text) {
+			return await message.send(`Hi ${pushName}, I am Shaka. How can I help you?`);
+		}
+		let query = match || message.reply_message.text;
+		const msg = await message.send("*_Thinking..._*");
+		const apiUrl = `https://nikka-api.us.kg/ai/moshai?q=${encodeURIComponent(query)}&apiKey=nikka`;
+		const res = await getJson(apiUrl);
+		console.log("API Response:", res);
+		await message.react("")
+		return msg.edit(res?.data || "Sorry, I couldn't process your request.");
+		
+	}
+);
+
+
