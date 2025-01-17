@@ -1,4 +1,5 @@
 import { haki } from '#lib';
+import { tiktok } from '#haki-utils';
 import {
 	convertToMp3,
 	extractUrl,
@@ -126,23 +127,31 @@ haki(
 	}
 );
 
+
+
 haki(
-	{
-		pattern: 'tiktok',
-		public: true,
-		desc: 'Download Tiktok Video',
-		type: 'download'
-	},
-	async (message, match) => {
-		let url;
-		url = match || message.reply_message.text;
-		if (!url) return message.send('_No Tiktok link found!_');
-		url = extractUrl(url);
-		if (!isTikTok(url)) return message.send('_Provide Reddit link!_');
-		const media = await NIKKA.tiktok(url);
-		return await message.sendFromUrl(media.url, { caption: media.title });
-	}
+    {
+        pattern: 'tiktok',
+        public: true,
+        desc: 'Download Tiktok Video',
+        type: 'download'
+    },
+    async (message, match) => {
+        let url = match || message.reply_message.text;
+        if (!url) return message.send('_No TikTok link found!_');
+
+        const tiktokRegex = /(?:http(?:s)?:\/\/)?(?:www\.)?tiktok\.com\/([^\s]+)/;
+        if (!tiktokRegex.test(url)) return message.send('_Please provide a valid TikTok URL._');
+
+        try {
+            const media = await tiktok(url);
+            return await message.sendFromUrl(media);
+        } catch (error) {
+            return message.send('_Failed to fetch TikTok video. Please try again later._');
+        }
+    }
 );
+
 
 haki(
 	{
