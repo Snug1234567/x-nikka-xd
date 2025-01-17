@@ -1,5 +1,5 @@
 import { haki } from '#lib';
-import { tiktok } from '#haki-utils';
+import { tiktok } from '../haki-utils/tiktok';
 import {
 	convertToMp3,
 	extractUrl,
