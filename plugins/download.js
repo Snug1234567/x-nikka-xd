@@ -1,5 +1,5 @@
 import { haki } from '#lib';
-//import { tiktok } from '../haki-utils/tiktok';
+import { tiktok } from '../haki-utils/tiktok.js';
 import {
 	convertToMp3,
 	extractUrl,
@@ -129,7 +129,7 @@ haki(
 
 
 
-/*haki(
+haki(
     {
         pattern: 'tiktok',
         public: true,
@@ -151,7 +151,7 @@ haki(
         }
     }
 );
-*/
+
 
 haki(
 	{
